@@ -1,0 +1,9 @@
+coreapi
+coreschema
+Django
+django-cors-headers
+django-jazzmin
+djangorestframework
+drf-yasg
+drf-yasg-json-api
+Pillow

@@ -7,7 +7,8 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-from product.views import ProductViewSet, AddToCartView, ViewCartView, RemoveFromCartView, ClearCartView
+from product.views import ProductViewSet, AddToCartView, ViewCartView, RemoveFromCartView, ClearCartView, RegisterView, \
+    LoginView, GetAllProductsView
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -24,10 +25,13 @@ schema_view = get_schema_view(
 
 
 product = [
+    path("all-products/", GetAllProductsView.as_view()),
     path("add-cart/", AddToCartView.as_view()),
     path("get-cart/", ViewCartView.as_view()),
     path('remove-from-cart/<int:product_id>/', RemoveFromCartView.as_view()),
     path("remove-all/", ClearCartView.as_view()),
+    path("register/", RegisterView.as_view()),
+    path("login/", LoginView.as_view())
 ]
 
 router = DefaultRouter()

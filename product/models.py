@@ -7,7 +7,7 @@ class Product(models.Model):
     title = models.CharField(max_length=25, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
     price = models.DecimalField(max_digits=5, decimal_places=2)
-    image = models.ImageField(upload_to='product/%Y/%m/%d/', verbose_name='Фото', null=True, blank=True,)
+    image = models.URLField(verbose_name='Фото URL', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Товар'

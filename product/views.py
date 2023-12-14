@@ -48,9 +48,11 @@ class AddToCartView(views.APIView):
         cart_item.save()
 
         return Response({'message': 'Product added to cart successfully'})
-    
+
 
 class ViewCartView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
     def get(self, request):
         user = request.user
         cart_items = Cart.objects.filter(user=user)
@@ -62,25 +64,25 @@ class RemoveFromCartView(views.APIView):
     def delete(self, request, product_id):
         user = request.user
         product = get_object_or_404(Product, pk=product_id)
-        
+
         try:
             cart_item = Cart.objects.get(user=user, product=product)
-            
+
             cart_item.delete()
-            
+
             return Response({'message': 'Product removed from cart successfully'})
         except Cart.DoesNotExist:
             return Response({'message': 'Product not found in cart'}, status=status.HTTP_404_NOT_FOUND)
-        
+
 
 class ClearCartView(views.APIView):
     def delete(self, request):
         user = request.user
-        
+
         try:
             cart_items = Cart.objects.filter(user=user)
             cart_items.delete()
-            
+
             return Response({'message': 'Cart cleared successfully'})
         except Cart.DoesNotExist:
             return Response({'message': 'Cart is already empty'}, status=status.HTTP_404_NOT_FOUND)
